@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_graph"
+    app:startDestination="@id/heroListFragment">
+
+    <activity
+        android:id="@+id/mainActivity"
+        android:name="com.example.dotaskillstimer.ui.screens.MainActivity"
+        android:label="main_activity"
+        tools:layout="@layout/main_activity" />
+    <fragment
+        android:id="@+id/heroTimerFragment"
+        android:name="com.example.dotaskillstimer.ui.screens.timerScreen.MainFragment"
+        android:label="layout_five_heroes"
+        tools:layout="@layout/layout_five_heroes" />
+    <fragment
+        android:id="@+id/heroListFragment"
+        android:name="com.example.dotaskillstimer.ui.screens.heroListScreen.HeroListFragment"
+        android:label="fragment_hero_list"
+        tools:layout="@layout/fragment_hero_list" >
+        <action
+            android:id="@+id/action_heroListFragment_to_mainFragment"
+            app:destination="@id/heroTimerFragment" />
+    </fragment>
+</navigation>

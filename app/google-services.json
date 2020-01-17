@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "574082035295",
+    "firebase_url": "https://dotaabilitytimer.firebaseio.com",
+    "project_id": "dotaabilitytimer",
+    "storage_bucket": "dotaabilitytimer.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:574082035295:android:02a0863e18fb77e8d5b5ea",
+        "android_client_info": {
+          "package_name": "com.example.dotaskillstimer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "574082035295-sur0emoirhn6ske55atdpf95ca4mn1tb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.dotaskillstimer",
+            "certificate_hash": "a1907fa853bc21afe3692ddd7c8bca2906a0ae88"
+          }
+        },
+        {
+          "client_id": "574082035295-st1v624punp8j66mj6arv2q1t2aphgaa.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAyonNbmzAdzZcmIaseeAvSGfpUGo5IXzQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "574082035295-st1v624punp8j66mj6arv2q1t2aphgaa.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

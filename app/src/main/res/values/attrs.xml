@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="TimerImageView">
+        <attr name="timer_milisec" format="integer" />
+
+    </declare-styleable>
+    <declare-styleable name="AspectRatioImageView">
+        <attr name="aspect_ratio" format="float"/>
+    </declare-styleable>
+</resources>
