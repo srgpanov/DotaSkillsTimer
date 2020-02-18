@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.example.dotaskillstimer.ui.AspectRatioImageView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/enemy_pick_5_view"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:src="@drawable/arc_warden_icon"
+    app:aspect_ratio="1.77"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+
+ />

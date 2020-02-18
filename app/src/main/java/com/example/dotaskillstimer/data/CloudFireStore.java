@@ -89,6 +89,24 @@ public class CloudFireStore {
                 });
 
     }
+    public void addItem(Item item) {
+        cloudStore.collection(abilityCollections)
+                .document(item.getName())
+                .set(item)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d(TAG, "DocumentSnapshot successfully written!");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(TAG, "Error adding document", e);
+                    }
+                });
+
+    }
 
     public void addHeroWithAbility(HeroWithAbility hero) {
         cloudStore.collection(heroCollections)

@@ -19,9 +19,16 @@
         android:id="@+id/heroListFragment"
         android:name="com.example.dotaskillstimer.ui.screens.heroListScreen.HeroListFragment"
         android:label="fragment_hero_list"
-        tools:layout="@layout/fragment_hero_list" >
+        tools:layout="@layout/layout_list_fragment" >
         <action
             android:id="@+id/action_heroListFragment_to_mainFragment"
             app:destination="@id/heroTimerFragment" />
+        <action
+            android:id="@+id/action_heroListFragment_to_settingFragment"
+            app:destination="@id/settingFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/settingFragment"
+        android:name="com.example.dotaskillstimer.ui.screens.settingScreen.SettingContainerFragment"
+        android:label="fragment_setting"/>
 </navigation>

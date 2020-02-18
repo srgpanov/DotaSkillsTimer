@@ -9,6 +9,7 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.room.Ignore;
 import androidx.room.Relation;
 import androidx.room.TypeConverter;
 import androidx.room.TypeConverters;
@@ -20,6 +21,9 @@ public class HeroWithAbility  implements Parcelable {
     private PrimaryAttributes primaryAttributes;
     @Relation(parentColumn = "name",entityColumn = "heroName")
     private List<Ability> abilities;
+    @Ignore
+    private List<Item> itemList=new ArrayList<>();
+
 
     public String getName() {
         return name;
@@ -53,12 +57,37 @@ public class HeroWithAbility  implements Parcelable {
         this.abilities = abilities;
     }
 
+    public List<Item> getItemList() {
+        return itemList;
+    }
+
+    public void setItemList(List<Item> itemList) {
+        this.itemList = itemList;
+    }
+
     @NonNull
     @Override
     public String toString() {
         if(abilities!=null) {
             return "Hero name: " + name + "  has " + abilities.size() + " abilities" + " primaryAttributes is " + primaryAttributes;
         }else return "Hero name: " + name + "  has " + null + " abilities" + " primaryAttributes is " + primaryAttributes;
+    }
+
+    public HeroWithAbility() {
+    }
+
+
+    public void applyCallDownReduction(float percent) {
+        for (Ability ability:abilities){
+            ability.setCallDownReduction(percent);
+        }
+    }
+
+    @Override
+    public boolean equals(@Nullable Object obj) {
+        boolean name =this.name.equals(((HeroWithAbility)obj).name);
+        Log.d("HeroWithAbility equals", String.valueOf(name));
+        return name;
     }
 
     @Override
@@ -71,10 +100,8 @@ public class HeroWithAbility  implements Parcelable {
         dest.writeString(this.name);
         dest.writeString(this.avatar);
         dest.writeInt(this.primaryAttributes == null ? -1 : this.primaryAttributes.ordinal());
-        dest.writeList(this.abilities);
-    }
-
-    public HeroWithAbility() {
+        dest.writeTypedList(this.abilities);
+        dest.writeTypedList(this.itemList);
     }
 
     protected HeroWithAbility(Parcel in) {
@@ -82,11 +109,11 @@ public class HeroWithAbility  implements Parcelable {
         this.avatar = in.readString();
         int tmpPrimaryAttributes = in.readInt();
         this.primaryAttributes = tmpPrimaryAttributes == -1 ? null : PrimaryAttributes.values()[tmpPrimaryAttributes];
-        this.abilities = new ArrayList<Ability>();
-        in.readList(this.abilities, Ability.class.getClassLoader());
+        this.abilities = in.createTypedArrayList(Ability.CREATOR);
+        this.itemList = in.createTypedArrayList(Item.CREATOR);
     }
 
-    public static final Parcelable.Creator<HeroWithAbility> CREATOR = new Parcelable.Creator<HeroWithAbility>() {
+    public static final Creator<HeroWithAbility> CREATOR = new Creator<HeroWithAbility>() {
         @Override
         public HeroWithAbility createFromParcel(Parcel source) {
             return new HeroWithAbility(source);
@@ -97,11 +124,4 @@ public class HeroWithAbility  implements Parcelable {
             return new HeroWithAbility[size];
         }
     };
-
-//    @Override
-//    public boolean equals(@Nullable Object obj) {
-//        boolean name =this.name.equals(((HeroWithAbility)obj).name);
-//        Log.d("HeroWithAbility equals", String.valueOf(name));
-//        return name;
-//    }
 }

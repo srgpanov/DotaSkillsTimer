@@ -11,7 +11,12 @@ import androidx.appcompat.widget.AppCompatImageView;
 
 public class AspectRatioImageView extends AppCompatImageView {
 
-    private static final float DEFAULT_ASPECT_RATIO = 1.73f;
+    private static final float DEFAULT_ASPECT_RATIO = 1.77f;
+
+    public void setAspectRatio(float aspectRatio) {
+        this.aspectRatio = aspectRatio;
+    }
+
     private float aspectRatio;
 
     public AspectRatioImageView(Context context) {

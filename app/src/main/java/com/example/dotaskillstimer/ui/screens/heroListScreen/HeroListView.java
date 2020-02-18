@@ -6,13 +6,14 @@ import com.example.dotaskillstimer.data.HeroWithAbility;
 import com.example.dotaskillstimer.ui.screens.MvpView;
 
 import java.util.List;
-import java.util.Map;
 
 public interface HeroListView extends MvpView {
-    void showHeroListForPick(List<HeroWithAbility>heroes);
-    void showHeroesEnemyPick(SparseArray<HeroWithAbility> enemyPick);
-    void removeHeroesFromPick(int position,int pickCount);
-    void addHeroesEnemyPick(HeroWithAbility hero, int pickCount);
+    void showHeroesForPick(List<HeroWithAbility>heroes);
+    void showHeroesEnemyDraft(List<HeroWithAbility> enemyPick);
+    void moveHeroFromPickToDraft(HeroWithAbility hero);
 
-    void startTimerScreen(SparseArray<HeroWithAbility> enemyPick);
+    void moveHeroFromDraftToPick(HeroWithAbility hero,int pickCount);
+
+
+    void startTimerScreen(List<HeroWithAbility> enemyPick);
 }

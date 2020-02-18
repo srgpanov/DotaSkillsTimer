@@ -19,14 +19,24 @@ public interface HeroDao {
     @Query("SELECT * FROM ability")
     Flowable<List<Ability>> getAllAbilities();
 
+    @Query("SELECT * FROM item")
+    Flowable<List<Item>> getAllItems();
+
     @Query("SELECT * FROM hero WHERE name = :name")
-    Maybe<Hero> getByName(String name);
+    Maybe<Hero> getHeroByName(String name);
+
+    @Query("SELECT * FROM item WHERE name = :name")
+    Maybe<Item> getItemByName(String name);
+
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(Hero hero);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(Ability ability);
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void insert(Item item);
 
     @Update
     void update(Hero hero);

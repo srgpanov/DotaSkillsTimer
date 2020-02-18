@@ -17,16 +17,22 @@ public class Ability implements Parcelable {
     private String name;
     private int callDown;
     private String icon;
+    private int position;
+
     @ColumnInfo(index = true)
     private String heroName;
 
+    @Ignore
+    private float callDownReduction;
 
-    public Ability(@NonNull String name, int callDown, String icon, String heroName) {
+    public Ability(@NonNull String name, int callDown, String icon, int position, String heroName) {
         this.name = name;
         this.callDown = callDown;
         this.icon = icon;
+        this.position = position;
         this.heroName = heroName;
     }
+
     @Ignore
     public Ability(@NonNull String name, int callDown, String heroName) {
         this.name = name;
@@ -36,7 +42,6 @@ public class Ability implements Parcelable {
     @Ignore
     public Ability() {
     }
-
     @NonNull
     public String getName() {
         return name;
@@ -48,6 +53,18 @@ public class Ability implements Parcelable {
 
     public int getCallDown() {
         return callDown;
+    }
+
+    public int getCallDownWithReduction() {
+        return (int) (callDown*(1-callDownReduction));
+    }
+
+    public int getPosition() {
+        return position;
+    }
+
+    public void setPosition(int position) {
+        this.position = position;
     }
 
     public void setCallDown(int callDown) {
@@ -70,6 +87,14 @@ public class Ability implements Parcelable {
         this.heroName = heroName;
     }
 
+    public float getCallDownReduction() {
+        return callDownReduction;
+    }
+
+    public void setCallDownReduction(float callDownReduction) {
+        this.callDownReduction = callDownReduction;
+    }
+
     @NonNull
     @Override
     public String toString() {
@@ -86,16 +111,21 @@ public class Ability implements Parcelable {
         dest.writeString(this.name);
         dest.writeInt(this.callDown);
         dest.writeString(this.icon);
+        dest.writeInt(this.position);
         dest.writeString(this.heroName);
+        dest.writeFloat(this.callDownReduction);
     }
 
     protected Ability(Parcel in) {
         this.name = in.readString();
         this.callDown = in.readInt();
         this.icon = in.readString();
+        this.position = in.readInt();
         this.heroName = in.readString();
+        this.callDownReduction = in.readFloat();
     }
-    public static final Parcelable.Creator<Ability> CREATOR = new Parcelable.Creator<Ability>() {
+
+    public static final Creator<Ability> CREATOR = new Creator<Ability>() {
         @Override
         public Ability createFromParcel(Parcel source) {
             return new Ability(source);
@@ -106,4 +136,6 @@ public class Ability implements Parcelable {
             return new Ability[size];
         }
     };
+
+
 }

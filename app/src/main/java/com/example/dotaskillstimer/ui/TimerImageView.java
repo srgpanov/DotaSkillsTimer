@@ -18,6 +18,7 @@ import android.util.Log;
 import android.view.animation.LinearInterpolator;
 
 import com.example.dotaskillstimer.R;
+import com.example.dotaskillstimer.utils.TimerState;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatImageView;
@@ -35,30 +36,26 @@ public class TimerImageView extends AppCompatImageView {
     private RectF timerArcRect;
     private float yCenterText;
     private Rect textBounds;
-    private int countTimerValueStarted;
     private int countTimerValueRemaining;
-    private int countTimerValueSeconds = countTimerValueStarted / 1000;
     private boolean timerIsRunning;
     private float pastTimerArc;
     private ValueAnimator timerAnimator;
     private PropertyValuesHolder propertyValuesTime;
-    private PropertyValuesHolder propertyValuesAngle;
     private String abilityName;
 
-    private int invalidateCounter;
+    private int timerDuration;
 
-    private long currentTime;
-    private long startTime;
+
+
     private long finishTime;
     public TimerImageView(Context context) {
         super(context);
         init();
     }
-
     public TimerImageView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         TypedArray typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.TimerImageView);
-        countTimerValueStarted = typedArray.getInt(R.styleable.TimerImageView_timer_milisec, 5000);
+        timerDuration = typedArray.getInt(R.styleable.TimerImageView_timer_milisec, 5000);
         typedArray.recycle();
         init();
     }
@@ -67,6 +64,14 @@ public class TimerImageView extends AppCompatImageView {
     public TimerImageView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init();
+    }
+
+    public int getTimerDuration() {
+        return timerDuration;
+    }
+
+    public void setTimerDuration(int timerDuration) {
+        this.timerDuration = timerDuration;
     }
 
     public boolean isTimerIsRunning() {
@@ -85,7 +90,6 @@ public class TimerImageView extends AppCompatImageView {
         textTimerPaint.setStrokeWidth(3);
         textTimerPaint.setTextAlign(Paint.Align.CENTER);
         timerAnimator = new ValueAnimator();
-        propertyValuesAngle = PropertyValuesHolder.ofInt(PROPERTY_ANGLE, 0, 360);
         timerAnimator.setInterpolator(new LinearInterpolator());
     }
 
@@ -94,42 +98,28 @@ public class TimerImageView extends AppCompatImageView {
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         logged("onMeasure");
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-
-
     }
 
-    public void setTimer(int millSec) {
-
-        countTimerValueStarted = millSec;
-        countTimerValueRemaining = countTimerValueStarted;
-
-        propertyValuesTime = PropertyValuesHolder.ofInt(PROPERTY_TIME, countTimerValueStarted, 0);
-        timerAnimator.setValues(propertyValuesAngle, propertyValuesTime);
-        timerAnimator.setDuration(countTimerValueStarted);
+    private void setTimer() {
+        int timeRemaining =(int) (finishTime-System.currentTimeMillis());
+        propertyValuesTime = PropertyValuesHolder.ofInt(PROPERTY_TIME, timeRemaining, 0);
+        timerAnimator.setValues( propertyValuesTime);
+        timerAnimator.setDuration(timeRemaining);
         timerAnimator.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
                 super.onAnimationEnd(animation);
-                logged("duration " + (System.currentTimeMillis() - currentTime));
                 timerIsRunning = false;
                 invalidate();
-                logged("invalidateCounter " + invalidateCounter);
-            }
-
-            @Override
-            public void onAnimationStart(Animator animation) {
-                super.onAnimationStart(animation);
-                currentTime = System.currentTimeMillis();
-                startTime = System.currentTimeMillis();
-                finishTime = startTime + millSec;
-                logged("duration " + startTime + "  " + finishTime);
             }
         });
         timerAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
-                pastTimerArc = (int) animation.getAnimatedValue(PROPERTY_ANGLE);
-                int secondsRemaining = (int) animation.getAnimatedValue(PROPERTY_TIME) / 1000;
+                int msesRemaining=(int) animation.getAnimatedValue(PROPERTY_TIME);
+                float partOfDuration =timerDuration/(float)msesRemaining;
+                pastTimerArc =360- (360/partOfDuration);
+                int secondsRemaining = msesRemaining / 1000;
                 countTimerValueRemaining = secondsRemaining;
                 invalidate();
             }
@@ -152,7 +142,7 @@ public class TimerImageView extends AppCompatImageView {
         yCenterText = centerVertical + (Math.abs(textBounds.height())) / 2;
         if(timerIsRunning){
             logged("rotate");
-            setTimer((int) (finishTime-System.currentTimeMillis()));
+            setTimer();
             timerAnimator.start();
         }
     }
@@ -164,6 +154,8 @@ public class TimerImageView extends AppCompatImageView {
             timerAnimator.cancel();
             invalidate();
         } else {
+            finishTime=System.currentTimeMillis()+timerDuration;
+            setTimer();
             timerIsRunning = true;
             timerAnimator.start();
         }
@@ -171,8 +163,6 @@ public class TimerImageView extends AppCompatImageView {
 
     @Override
     protected void onDraw(Canvas canvas) {
-        logged("invalidate");
-        invalidateCounter++;
         if (timerIsRunning) {
             super.onDraw(canvas);
             drawTimerArc(canvas, pastTimerArc);
@@ -182,13 +172,17 @@ public class TimerImageView extends AppCompatImageView {
         }
     }
 
-    public int getCountTimerValueStarted() {
-        return countTimerValueStarted;
+    public void setTimerState(TimerState state){
+        logged("setTimerState");
+        this.timerIsRunning=state.isTimerIsRunning();
+        this.finishTime=state.getFinishTime();
+    }
+    public TimerState getTimerState(){
+        return new TimerState(finishTime,timerIsRunning);
     }
 
-    public void setCountTimerValueStarted(int countTimerValueStarted) {
-        this.countTimerValueStarted = countTimerValueStarted;
-    }
+
+
 
     private void drawTimerArc(Canvas canvas, float angle) {
         canvas.drawArc(timerArcRect, 270, angle - 360, true, timerPaint);
@@ -213,7 +207,6 @@ public class TimerImageView extends AppCompatImageView {
         logged("onSaveInstanceState");
         Parcelable superState = super.onSaveInstanceState();
         SavedState ss = new SavedState(superState);
-        ss.startTime = startTime;
         ss.finishTime = finishTime;
         if (timerIsRunning) {
             ss.timerIsRunning = 1;
@@ -228,13 +221,12 @@ public class TimerImageView extends AppCompatImageView {
         logged("onRestoreInstanceState");
         SavedState ss = (SavedState) state;
         super.onRestoreInstanceState(ss.getSuperState());
-        startTime = ss.startTime;
         finishTime=ss.finishTime;
         timerIsRunning= ss.timerIsRunning == 1;
     }
-    private static class SavedState extends BaseSavedState {
+    private  class SavedState extends BaseSavedState {
 
-        public static final Parcelable.Creator<SavedState> CREATOR
+        public  final Parcelable.Creator<SavedState> CREATOR
                 = new Parcelable.Creator<SavedState>() {
             public SavedState createFromParcel(Parcel in) {
                 return new SavedState(in);
@@ -244,7 +236,6 @@ public class TimerImageView extends AppCompatImageView {
                 return new SavedState[size];
             }
         };
-        private long startTime;
         private long finishTime;
         private int timerIsRunning;
 
@@ -254,7 +245,6 @@ public class TimerImageView extends AppCompatImageView {
 
         private SavedState(Parcel in) {
             super(in);
-            startTime = in.readLong();
             finishTime = in.readLong();
             timerIsRunning = in.readInt();
         }
@@ -262,9 +252,9 @@ public class TimerImageView extends AppCompatImageView {
         @Override
         public void writeToParcel(Parcel out, int flags) {
             super.writeToParcel(out, flags);
-            out.writeLong(startTime);
             out.writeLong(finishTime);
             out.writeInt(timerIsRunning);
         }
     }
+
 }

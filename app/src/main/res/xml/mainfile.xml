@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+
+
+        <ListPreference
+            app:key="@string/abilityMinCallDownForShow"
+            app:icon="@drawable/ic_timer_off_24px"
+            app:title="Don't show abilities shorter than"
+            app:defaultValue="0"
+            app:entries="@array/timer_duration"
+            app:entryValues="@array/timer_duration_ms"
+            app:useSimpleSummaryProvider="true"
+            />
+        <SwitchPreference
+            app:key="animations"
+            app:title="Enable animation"
+            app:defaultValue="true"
+            app:icon="@drawable/ic_gesture_black_24dp"
+            />
+        <Preference
+            app:key="about"
+            app:title="About"
+            app:icon="@drawable/ic_info_outline_black_24dp"
+            />
+
+
+</PreferenceScreen>

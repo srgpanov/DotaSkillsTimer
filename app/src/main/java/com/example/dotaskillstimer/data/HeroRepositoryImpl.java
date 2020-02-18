@@ -22,7 +22,7 @@ public class HeroRepositoryImpl implements HeroRepository {
     @Override
     public Maybe<Hero> getHeroByName(String name) {
 
-        return mHeroDao.getByName(name);
+        return mHeroDao.getHeroByName(name);
 
     }
 
@@ -54,17 +54,22 @@ public class HeroRepositoryImpl implements HeroRepository {
 
 
     @Override
+    public Flowable<List<Item>> getAllItems() {
+        return mHeroDao.getAllItems();
+    }
+    @Override
     public void addHero(Hero hero) {
         Disposable disposable=Completable.fromAction(() -> mHeroDao.insert(hero))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                        () -> Log.d(TAG, hero.getName()),
+                        () -> Log.d(TAG, "hero added:"+hero.getName()),
                         throwable -> Log.d(TAG, "Hero not added:" + throwable.getMessage())
                 );
 
 
     }
+
     @Override
     public void addAbility(Ability ability) {
         Disposable disposable=Completable.fromAction(() -> mHeroDao.insert(ability))
@@ -72,12 +77,22 @@ public class HeroRepositoryImpl implements HeroRepository {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         () -> Log.d(TAG, "Ability added:" + ability.getName()),
-                        throwable -> Log.d(TAG, "Ability not added:" + throwable.getMessage())
+                        throwable -> Log.d(TAG, "Ability not added:" +ability.getName()+" "+ throwable.getMessage())
                 );
 
 
     }
 
+    @Override
+    public void addItem(Item item) {
+        Disposable disposable=Completable.fromAction(() -> mHeroDao.insert(item))
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        () -> Log.d(TAG, "Item added:" + item.getName()),
+                        throwable -> Log.d(TAG, "Ability not added:" + throwable.getMessage())
+                );
+    }
 
 
     @Override
