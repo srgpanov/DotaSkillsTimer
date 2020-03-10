@@ -7,28 +7,28 @@
 
     <activity
         android:id="@+id/mainActivity"
-        android:name="com.example.dotaskillstimer.ui.screens.MainActivity"
+        android:name="com.srgpanov.dotaskillstimer.ui.screens.MainActivity"
         android:label="main_activity"
         tools:layout="@layout/main_activity" />
     <fragment
         android:id="@+id/heroTimerFragment"
-        android:name="com.example.dotaskillstimer.ui.screens.timerScreen.MainFragment"
+        android:name="com.srgpanov.dotaskillstimer.ui.screens.timerScreen.TimerFragment"
         android:label="layout_five_heroes"
         tools:layout="@layout/layout_five_heroes" />
     <fragment
         android:id="@+id/heroListFragment"
-        android:name="com.example.dotaskillstimer.ui.screens.heroListScreen.HeroListFragment"
+        android:name="com.srgpanov.dotaskillstimer.ui.screens.heroListScreen.HeroListFragment"
         android:label="fragment_hero_list"
         tools:layout="@layout/layout_list_fragment" >
         <action
             android:id="@+id/action_heroListFragment_to_mainFragment"
-            app:destination="@id/heroTimerFragment" />
+            app:destination="@id/heroTimerFragment"/>
         <action
             android:id="@+id/action_heroListFragment_to_settingFragment"
-            app:destination="@id/settingFragment" />
+            app:destination="@id/settingFragment"/>
     </fragment>
     <fragment
         android:id="@+id/settingFragment"
-        android:name="com.example.dotaskillstimer.ui.screens.settingScreen.SettingContainerFragment"
+        android:name="com.srgpanov.dotaskillstimer.ui.screens.settingScreen.SettingContainerFragment"
         android:label="fragment_setting"/>
 </navigation>

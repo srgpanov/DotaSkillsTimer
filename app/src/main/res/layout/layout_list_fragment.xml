@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/hero_list_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:clipChildren="false"
+    android:background="@drawable/appliacation_background"
     tools:context=".ui.screens.heroListScreen.HeroListFragment">
 
     <androidx.appcompat.widget.Toolbar
@@ -24,44 +26,43 @@
         android:id="@+id/rec_view_hero_list_frag"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/enemy_pick_panel"
+        app:layout_constraintBottom_toTopOf="@+id/draft_view_container"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar_hero_list_frag" />
 
-    <View
-        android:id="@+id/enemy_pick_panel"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:background="#aa000000"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
-
-    <Button
-        android:id="@+id/button_start_timer_frag"
+<com.google.android.material.floatingactionbutton.FloatingActionButton
+    android:id="@+id/button_start_timer_frag"
+    android:layout_width="@dimen/floating_button_size"
+    android:layout_height="@dimen/floating_button_size"
+    android:layout_margin="16dp"
+    android:background="@color/accent"
+    android:src="@drawable/ic_icons8_dota_2"
+    app:layout_constraintBottom_toTopOf="@id/draft_view_container"
+    app:layout_constraintEnd_toEndOf="parent"/>
+    <ProgressBar
+        android:id="@+id/progress_bar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="timer fragment"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
+        app:layout_constraintVertical_bias="0.4"
+        android:visibility="gone"/>
 
+<!-- todo сделать высоту драфт контэйнера-->
     <LinearLayout
         android:id="@+id/draft_view_container"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="50dp"
         android:gravity="center_horizontal|top"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@id/button_start_timer_frag"
+        android:background="@color/primary"
+        android:elevation="4dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/enemy_pick_panel">
-
-
-
-
-
+        app:layout_constraintStart_toStartOf="parent">
     </LinearLayout>
 
 

@@ -1,7 +1,6 @@
 <resources>
-    <string name="app_name">DotaSkillsTimer</string>
+    <string name="app_name">Dota Skills Timer</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="DataBaseName">HeroDatabase</string>
     <string name="hero_list_title">Hero list</string>
@@ -22,4 +21,16 @@
     <string name="abilityMinCallDownForShow">ability_duration</string>
     <string name="settings">Settings</string>
     <string name="hide">hide</string>
+    <string name="select_item">Select item</string>
+    <string name="enemy_draft">enemy team cannot have more than 5 heroes</string>
+    <string name="animation">animations_setting</string>
+    <string name="refresh_db">refresh_db</string>
+    <string name="new_patch_arrive">when did the new patch arrive</string>
+    <string name="refresh_heroes_info">Refresh heroes info</string>
+    <string name="data_is_actual">data is actual</string>
+    <string name="something_went_wrong">something went wrong</string>
+    <string name="data_was_refreshed">data was refreshed</string>
+    <string name="passive_or_charges">It\'s passive ability or ability with charges</string>
+    <string name="check_internet">\"Check internet connection \"</string>
+    <string name="default_min_cooldawn">15</string>
 </resources>

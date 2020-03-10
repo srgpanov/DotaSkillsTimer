@@ -19,7 +19,7 @@
         android:layout_height="match_parent"
         android:id="@+id/setting_container"
         android:tag="setting_container"
-        android:name="com.example.dotaskillstimer.ui.screens.settingScreen.SettingFragment"
+        android:name="com.srgpanov.dotaskillstimer.ui.screens.settingScreen.SettingFragment"
         tools:layout="@layout/fragment_setting"
         />
 

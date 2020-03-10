@@ -8,20 +8,12 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:574082035295:android:02a0863e18fb77e8d5b5ea",
+        "mobilesdk_app_id": "1:574082035295:android:8fcc4a2acdc97c4fd5b5ea",
         "android_client_info": {
-          "package_name": "com.example.dotaskillstimer"
+          "package_name": "com.srgpanov.dotaskillstimer"
         }
       },
       "oauth_client": [
-        {
-          "client_id": "574082035295-sur0emoirhn6ske55atdpf95ca4mn1tb.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.dotaskillstimer",
-            "certificate_hash": "a1907fa853bc21afe3692ddd7c8bca2906a0ae88"
-          }
-        },
         {
           "client_id": "574082035295-st1v624punp8j66mj6arv2q1t2aphgaa.apps.googleusercontent.com",
           "client_type": 3
