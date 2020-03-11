@@ -17,3 +17,4 @@
 6.	Анимации – использовал Shared Element Transitions, Transition Manager, Value Animator, Animation.
 7.	RxJava для асинхронной работы и отслеживания состояний экранов
 8.	Navigation Architecture Component – в приложении всего два экрана, но для навигации использовал NAC.
+9.	Поработал над устранением утечек памяти.
